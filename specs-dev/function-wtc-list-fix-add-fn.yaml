@@ -1,0 +1,61 @@
+include:
+- fission.py
+kind: ArchiveUploadSpec
+name: fission-py-KF6x
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: wtc-list-fix-fix-add-fn-c10123d1-8f87-4fcc-96f8-6f39e5eb769e
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://fission-py-KF6x
+  environment:
+    name: wtc-list-fix-fix-add-env
+    namespace: default
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+  lastUpdateTimestamp: "2023-01-16T16:07:27Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: wtc-list-fix-fix-add-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 3
+      MinScale: 1
+      SpecializationTimeout: 120
+      TargetCPUPercent: 0
+      hpaMetrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 80
+            type: Utilization
+        type: Resource
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: wtc-list-fix-fix-add-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    packageref:
+      name: wtc-list-fix-fix-add-fn-c10123d1-8f87-4fcc-96f8-6f39e5eb769e
+      namespace: default
+  requestsPerPod: 10000
+  resources: {}
