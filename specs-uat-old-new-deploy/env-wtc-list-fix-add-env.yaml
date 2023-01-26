@@ -5,17 +5,17 @@ metadata:
   name: wtc-list-fix-fix-add-env
   namespace: default
 spec:
+  builder:
+    container:
+      name: ""
+      resources: {}
   imagepullsecret: nexus-v3
   keeparchive: false
-  poolsize: 2
-  resources:
-    requests:
-      cpu: 128m
-      memory: 128Mi
-    limits:
-      cpu: 256m
-      memory: 256Mi
+  resources: {}
   runtime:
+    container:
+      name: ""
+      resources: {}
     image: nexus.sigame.com.br/fission-wacth-list-fixed-income-add:0.1.0
     podspec:
       containers:
@@ -47,5 +47,4 @@ spec:
           value: "redis://jormungandr:Mdn45oodsanPOhbrewbDS@172.30.19.183:6379?db=1"
         - name: ASGI_FRAMEWORK
           value: "HYPERCORN"
-  terminationGracePeriod: 3
   version: 3
